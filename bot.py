@@ -6,7 +6,8 @@ from discord.ext import context
 from dotenv import load_dotenv
 #from word_banlist import banlist
 from discord.utils import get
-
+from variable import welcome_message
+from variable import ignore_message
 
 intents = discord.Intents.default()
 intents.members = True
@@ -14,13 +15,20 @@ intents.members = True
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-
 client = discord.Client()
 ### Shows that Lord Ratty has entered the server
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
 ## Lord Ratty entered Server
+
+#Lord Ratty will respond to Direct Messages
+@client.event
+async def on_message(message):
+    if isinstance(message.channel, discord.channel.DMChannel) and message.author != client.user:
+        await message.channel.send('This is a DM')
+## End of Direct Message
+
 
 #Lord Ratty will Ban words
 #@client.event
@@ -45,14 +53,6 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    welcome_message = [
-        'Welcome to my Trove, Subject',
-        '***Eats Cheese***', '***shines ring*** Another one, Welcome', 'Hi there, Hello, Did you bring fresh cheese for Ratty?', 'You have chosen wisely.', 'Ohhh Shiny.'
-    ]
-
-    ignore_message = ['*Lord Ratty refuses to acknowledge you*', '*stares*', '*eats cheese*', '**You will address me properly!**' 
-    
-    ]
     if message.content.lower() == 'hello':
         response = random.choice(welcome_message)
         await message.channel.send(response)
