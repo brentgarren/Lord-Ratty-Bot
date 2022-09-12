@@ -22,7 +22,6 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 client = discord.Client()
 ##Variables
-Dtwenty = str(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'])
 
 ### Shows that Lord Ratty has entered the server
 @client.event
@@ -60,7 +59,7 @@ async def on_message(message):
 async def on_message(message):
     if message.author == client.user:
         return
-
+    
     if message.content.lower() == 'hello':
         response = random.choice(welcome_message)
         await message.channel.send(response)
@@ -77,6 +76,10 @@ async def on_message(message):
         response = random.choice(ignore_message)
         await message.channel.send(response)
 
+    if "roll" in message.content:
+        Dtwenty = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+        response = random.choice(Dtwenty)
+        await message.channel.send(response)
 
     elif message.content == 'raise-exception':
         raise discord.DiscordException
