@@ -63,26 +63,42 @@ async def on_message(message):
     if message.content.lower() == 'hello':
         response = random.choice(welcome_message)
         await message.channel.send(response)
-
+        return
     if "Lord Ratty" in message.content:
         response = random.choice(welcome_message)
         await message.channel.send(response)
-    
+        return
     if "lord ratty" in message.content:
         response = random.choice(ignore_message)
         await message.channel.send(response)
-
-    if "ratty" in message.content:
-        response = random.choice(ignore_message)
+        return
+    if message.content.lower() == 'roll20':
+        response = random.randint(1, 20)
         await message.channel.send(response)
-
-    if "roll" in message.content:
-        Dtwenty = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
-        response = random.choice(Dtwenty)
+        return
+    if message.content.lower() == 'roll6':
+        response = random.randint(1, 6)
         await message.channel.send(response)
-
+        return
+    if message.content.lower() == 'roll4':
+        response = random.randint(1, 4)
+        await message.channel.send(response)
+        return
+    if message.content.lower() == 'roll12':
+        response = random.randint(1, 12)
+        await message.channel.send(response)
+        return
+    if message.content.lower() == 'roll8':
+        response = random.randint(1, 8)
+        await message.channel.send(response)
+        return
+    if message.content.lower() == 'roll100':
+        response = random.randint(1, 100)
+        await message.channel.send(response)
+        return
     elif message.content == 'raise-exception':
         raise discord.DiscordException
+        return
 
 ###This is end of Ratty one liners
 
