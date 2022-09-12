@@ -1,14 +1,19 @@
 # bot.py
+
+#Libraries
 import os
 import random
 import discord
+import time
 from discord.ext import context
+from discord.ext import commands
+from random import randint
 from dotenv import load_dotenv
 #from word_banlist import banlist
 from discord.utils import get
 from variable import welcome_message
 from variable import ignore_message
-
+import asyncio
 intents = discord.Intents.default()
 intents.members = True
 
@@ -16,6 +21,9 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 client = discord.Client()
+##Variables
+Dtwenty = str(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'])
+
 ### Shows that Lord Ratty has entered the server
 @client.event
 async def on_ready():
@@ -65,13 +73,15 @@ async def on_message(message):
         response = random.choice(ignore_message)
         await message.channel.send(response)
 
+    if "ratty" in message.content:
+        response = random.choice(ignore_message)
+        await message.channel.send(response)
+
+
     elif message.content == 'raise-exception':
         raise discord.DiscordException
 
 ###This is end of Ratty one liners
-
-
-
 
 
 
