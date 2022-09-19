@@ -2,6 +2,7 @@
 
 #Libraries
 import os
+from py_compile import _get_default_invalidation_mode
 import random
 import discord
 import time
@@ -24,7 +25,7 @@ class MyClient(discord.Client):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.target_message_id = 1008821437416611950
+        
 
 
     async def on_ready(self):
@@ -32,62 +33,62 @@ class MyClient(discord.Client):
     
     
     async def on_raw_reaction_add(self, payload):
-        if payload.message_id != self.target_message_id:
-            return
+        #if payload.message_id != self.target_message_id:
+        #    return
         
         guild = client.get_guild(payload.guild_id)
         
-        if payload.emoji.name == '🐲':
+        if payload.emoji.name == '🐲' and payload.message_id == 1008821437416611950:
             role = discord.utils.get(guild.roles, name="TTRPG")
             await payload.member.add_roles(role)
-        if payload.emoji.name == '🃏':
+        if payload.emoji.name == '🃏' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='Card Gamer')
            await payload.member.add_roles(role)
-        if payload.emoji.name == '🐭':
-           role = discord.utils.get(guild.roles, name='Subject')
-           await payload.member.add_roles(role)
-        if payload.emoji.name == '♟️':
+        if payload.emoji.name == '✅' and payload.message_id == 1021276883322675270:
+          role = discord.utils.get(guild.roles, name='Subject')
+          await payload.member.add_roles(role)
+        if payload.emoji.name == '♟️' and payload.message_id == 1008821437416611950:
             role = discord.utils.get(guild.roles, name="Tabletop Simulator")
             await payload.member.add_roles(role)
-        if payload.emoji.name == '⚔️':
+        if payload.emoji.name == '⚔️' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='Total War')
            await payload.member.add_roles(role)
-        if payload.emoji.name == '✈️':
+        if payload.emoji.name == '✈️' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='Warthunder')
            await payload.member.add_roles(role)
     async def on_raw_reaction_remove(self, payload):
-        if payload.message_id != self.target_message_id:
-            return
+        #if payload.message_id != self.target_message_id:
+        #    return
         
         guild = client.get_guild(payload.guild_id)
         member = guild.get_member(payload.user_id)
 
-        if payload.emoji.name == '🐲':
+        if payload.emoji.name == '🐲' and payload.message_id == 1008821437416611950:
             role = discord.utils.get(guild.roles, name="TTRPG")
             await member.remove_roles(role)
-        if payload.emoji.name == '🃏':
+        if payload.emoji.name == '🃏' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='Card Gamer')
            await member.remove_roles(role)
-        if payload.emoji.name == '🐭':
+        if payload.emoji.name == '✅' and payload.message_id == 1021276883322675270:
            role = discord.utils.get(guild.roles, name='Subject')
            await member.remove_roles(role)
-        if payload.emoji.name == '♟️':
+        if payload.emoji.name == '♟️' and payload.message_id == 1008821437416611950:
             role = discord.utils.get(guild.roles, name="Tabletop Simulator")
             await member.remove_roles(role)
-        if payload.emoji.name == '⚔️':
+        if payload.emoji.name == '⚔️' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='Total War')
            await member.remove_roles(role)
-        if payload.emoji.name == '✈️':
+        if payload.emoji.name == '✈️' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='Warthunder')
            await member.remove_roles(role)
+
+
 
 intents = discord.Intents.default()
 intents.members = True
 
 
 client = MyClient(intents=intents)
-
-
 
 
 ##Variables
@@ -168,6 +169,7 @@ async def on_message(message):
     elif message.content == 'raise-exception':
         raise discord.DiscordException
         return
+    
 
 ###This is end of Ratty one liners
 
