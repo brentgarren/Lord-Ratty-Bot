@@ -1,6 +1,7 @@
 # bot.py
 
 #Libraries
+from asyncio import events
 import os
 from py_compile import _get_default_invalidation_mode
 import random
@@ -14,6 +15,7 @@ from dotenv import load_dotenv
 from discord.utils import get
 from variable import welcome_message
 from variable import ignore_message
+from word_banlist import banlist
 import asyncio
 
 
@@ -129,7 +131,10 @@ async def on_message(message):
 async def on_message(message):
     if message.author == client.user:
         return
-    
+    if any(word in message.content.lower() for word in banlist):
+        await message.author.send('Silence')
+        await message.delete()
+        return
     if message.content.lower() == 'hello':
         response = random.choice(welcome_message)
         await message.channel.send(response)

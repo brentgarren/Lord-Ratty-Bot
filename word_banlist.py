@@ -1,1 +1,1 @@
-#banlist = 
+banlist = ['purple', 'green']
