@@ -132,7 +132,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     if any(word in message.content.lower() for word in banlist):
-        await message.author.send('Silence')
+        await message.author.send('Silence, Hold your tongue!')
         await message.delete()
         return
     if message.content.lower() == 'hello':
