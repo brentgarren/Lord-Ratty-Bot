@@ -46,7 +46,15 @@ class MyClient(discord.Client):
         if payload.emoji.name == '🐭':
            role = discord.utils.get(guild.roles, name='Subject')
            await payload.member.add_roles(role)
-
+        if payload.emoji.name == '♟️':
+            role = discord.utils.get(guild.roles, name="Tabletop Simulator")
+            await payload.member.add_roles(role)
+        if payload.emoji.name == '⚔️':
+           role = discord.utils.get(guild.roles, name='Total War')
+           await payload.member.add_roles(role)
+        if payload.emoji.name == '✈️':
+           role = discord.utils.get(guild.roles, name='Warthunder')
+           await payload.member.add_roles(role)
     async def on_raw_reaction_remove(self, payload):
         if payload.message_id != self.target_message_id:
             return
@@ -63,7 +71,15 @@ class MyClient(discord.Client):
         if payload.emoji.name == '🐭':
            role = discord.utils.get(guild.roles, name='Subject')
            await member.remove_roles(role)
-
+        if payload.emoji.name == '♟️':
+            role = discord.utils.get(guild.roles, name="Tabletop Simulator")
+            await member.remove_roles(role)
+        if payload.emoji.name == '⚔️':
+           role = discord.utils.get(guild.roles, name='Total War')
+           await member.remove_roles(role)
+        if payload.emoji.name == '✈️':
+           role = discord.utils.get(guild.roles, name='Warthunder')
+           await member.remove_roles(role)
 
 intents = discord.Intents.default()
 intents.members = True
