@@ -14,13 +14,66 @@ from discord.utils import get
 from variable import welcome_message
 from variable import ignore_message
 import asyncio
-intents = discord.Intents.default()
-intents.members = True
+
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-client = discord.Client()
+class MyClient(discord.Client):
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.target_message_id = 1008821437416611950
+
+
+    async def on_ready(self):
+        print('Ready')
+    
+    
+    async def on_raw_reaction_add(self, payload):
+        if payload.message_id != self.target_message_id:
+            return
+        
+        guild = client.get_guild(payload.guild_id)
+        
+        if payload.emoji.name == '🐲':
+            role = discord.utils.get(guild.roles, name="TTRPG")
+            await payload.member.add_roles(role)
+        if payload.emoji.name == '🃏':
+           role = discord.utils.get(guild.roles, name='Card Gamer')
+           await payload.member.add_roles(role)
+        if payload.emoji.name == '🐭':
+           role = discord.utils.get(guild.roles, name='Subject')
+           await payload.member.add_roles(role)
+
+    async def on_raw_reaction_remove(self, payload):
+        if payload.message_id != self.target_message_id:
+            return
+        
+        guild = client.get_guild(payload.guild_id)
+        member = guild.get_member(payload.user_id)
+
+        if payload.emoji.name == '🐲':
+            role = discord.utils.get(guild.roles, name="TTRPG")
+            await member.remove_roles(role)
+        if payload.emoji.name == '🃏':
+           role = discord.utils.get(guild.roles, name='Card Gamer')
+           await member.remove_roles(role)
+        if payload.emoji.name == '🐭':
+           role = discord.utils.get(guild.roles, name='Subject')
+           await member.remove_roles(role)
+
+
+intents = discord.Intents.default()
+intents.members = True
+
+
+client = MyClient(intents=intents)
+
+
+
+
 ##Variables
 
 ### Shows that Lord Ratty has entered the server
