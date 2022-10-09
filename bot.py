@@ -61,7 +61,11 @@ class MyClient(discord.Client):
         if payload.emoji.name == '🌑' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='7 Days 2 Die')
            await payload.member.add_roles(role)
+        if payload.emoji.name == '🇱' and payload.message_id == 1008821437416611950:
+           role = discord.utils.get(guild.roles, name='League of Legends')
+           await payload.member.add_roles(role)
     async def on_raw_reaction_remove(self, payload):
+        
         #if payload.message_id != self.target_message_id:
         #    return
         
@@ -87,6 +91,9 @@ class MyClient(discord.Client):
            role = discord.utils.get(guild.roles, name='Warthunder')
            await member.remove_roles(role)
         if payload.emoji.name == '🌑' and payload.message_id == 1008821437416611950:
+           role = discord.utils.get(guild.roles, name='7 Days 2 Die')
+           await member.remove_roles(role)
+        if payload.emoji.name == '🇱' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='7 Days 2 Die')
            await member.remove_roles(role)
 
