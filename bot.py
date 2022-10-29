@@ -7,8 +7,10 @@ from py_compile import _get_default_invalidation_mode
 import random
 import discord
 import time
+from easy_pil import Editor, load_image_async, Font
 from discord.ext import context
 from discord.ext import commands
+from discord import File
 from random import randint
 from dotenv import load_dotenv
 #from word_banlist import banlist
@@ -16,6 +18,7 @@ from discord.utils import get
 from variable import welcome_message
 from variable import ignore_message
 from word_banlist import banlist
+
 import asyncio
 
 
@@ -64,6 +67,9 @@ class MyClient(discord.Client):
         if payload.emoji.name == '🇱' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='League of Legends')
            await payload.member.add_roles(role)
+        if payload.emoji.name == '⚓' and payload.message_id == 1008821437416611950:
+           role = discord.utils.get(guild.roles, name='Barotrauma')
+           await payload.member.add_roles(role)
     async def on_raw_reaction_remove(self, payload):
         
         #if payload.message_id != self.target_message_id:
@@ -96,7 +102,9 @@ class MyClient(discord.Client):
         if payload.emoji.name == '🇱' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='7 Days 2 Die')
            await member.remove_roles(role)
-
+        if payload.emoji.name == '⚓' and payload.message_id == 1008821437416611950:
+           role = discord.utils.get(guild.roles, name='Barotrauma')
+           await member.remove_roles(role)
 
 intents = discord.Intents.default()
 intents.members = True
@@ -129,13 +137,31 @@ async def on_message(message):
  #       await member.ban()
 #        return
 
-### Direct Message new Members
-#@client.event
-#async def on_member_join(member):
-#    await member.create_dm()
-#    await member.dm_channel.send(
-#        f' , Greetings {member.name}, Welcome to my trove.'
-#    )
+@client.event
+async def on_member_join(member):
+
+    intents = discord.Intents.all()
+
+    channel = member.guild.get_channel(1007437376882212956)
+
+    background = Editor("background1.png")
+    profile_image = await load_image_async(str(member.avatar_url))
+
+    profile = Editor(profile_image).resize((150, 150)).circle_image()
+    poppins = Font.poppins(size=50, variant="bold")
+
+    poppins_small = Font.poppins(size=32, variant="light")
+
+    background.paste(profile, (325,90))
+    background.ellipse((325, 90), 150, 150, outline="white",stroke_width=5)
+
+    background.text((400, 260), f"Greetings Subject,", color="white", font=poppins, align="center",)
+    background.text((400, 325), f"{member.name}#{member.discriminator}", color="white", font=poppins_small, align="center")
+
+    file = File(fp=background.image_bytes, filename="background1.jpg")
+    await channel.send(f"Hello {member.mention}! Welcome to The **{member.guild.name} **")
+    await channel.send(file=file)
+
 
 
 ##This section includes various greetings Lord Ratty will say

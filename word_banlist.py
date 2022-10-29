@@ -1,1 +1,1 @@
-banlist = ['purple', 'green']
+banlist = []
