@@ -70,6 +70,12 @@ class MyClient(discord.Client):
         if payload.emoji.name == '⚓' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='Barotrauma')
            await payload.member.add_roles(role)
+        if payload.emoji.name == '🧀' and payload.message_id == 1008821437416611950:
+           role = discord.utils.get(guild.roles, name='Vermintide')
+           await payload.member.add_roles(role)
+        if payload.emoji.name == '🇻' and payload.message_id == 1008821437416611950:
+           role = discord.utils.get(guild.roles, name='Valorant')
+           await payload.member.add_roles(role)
     async def on_raw_reaction_remove(self, payload):
         
         #if payload.message_id != self.target_message_id:
@@ -104,6 +110,12 @@ class MyClient(discord.Client):
            await member.remove_roles(role)
         if payload.emoji.name == '⚓' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='Barotrauma')
+           await member.remove_roles(role)
+        if payload.emoji.name == '🧀' and payload.message_id == 1008821437416611950:
+           role = discord.utils.get(guild.roles, name='Vermintide')
+           await member.remove_roles(role)
+        if payload.emoji.name == '🇻' and payload.message_id == 1008821437416611950:
+           role = discord.utils.get(guild.roles, name='Valorant')
            await member.remove_roles(role)
 
 intents = discord.Intents.default()
