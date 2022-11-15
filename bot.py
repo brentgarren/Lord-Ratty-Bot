@@ -76,6 +76,9 @@ class MyClient(discord.Client):
         if payload.emoji.name == '🇻' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='Valorant')
            await payload.member.add_roles(role)
+        if payload.emoji.name == '🇩' and payload.message_id == 1008821437416611950:
+           role = discord.utils.get(guild.roles, name='Darktide')
+           await payload.member.add_roles(role)
     async def on_raw_reaction_remove(self, payload):
         
         #if payload.message_id != self.target_message_id:
@@ -117,9 +120,12 @@ class MyClient(discord.Client):
         if payload.emoji.name == '🇻' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='Valorant')
            await member.remove_roles(role)
+        if payload.emoji.name == '🇩' and payload.message_id == 1008821437416611950:
+           role = discord.utils.get(guild.roles, name='Valorant')
+           await member.remove_roles(role)
 
 intents = discord.Intents.default()
-intents.members = True
+intents.members = True 
 
 
 client = MyClient(intents=intents)
@@ -151,9 +157,10 @@ async def on_message(message):
 
 @client.event
 async def on_member_join(member):
-
+    
     intents = discord.Intents.all()
-
+    role = get(member.guild.roles, id=1008820038825934989)
+    await member.add_roles(role)
     channel = member.guild.get_channel(1007437376882212956)
 
     background = Editor("background1.png")
