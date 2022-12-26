@@ -109,7 +109,7 @@ class MyClient(discord.Client):
            role = discord.utils.get(guild.roles, name='7 Days 2 Die')
            await member.remove_roles(role)
         if payload.emoji.name == '🇱' and payload.message_id == 1008821437416611950:
-           role = discord.utils.get(guild.roles, name='7 Days 2 Die')
+           role = discord.utils.get(guild.roles, name='League of Legends')
            await member.remove_roles(role)
         if payload.emoji.name == '⚓' and payload.message_id == 1008821437416611950:
            role = discord.utils.get(guild.roles, name='Barotrauma')
@@ -192,7 +192,7 @@ async def on_message(message):
         await message.author.send('Silence, Hold your tongue!')
         await message.delete()
         return
-    if message.content.lower() == 'hello':
+    if message.content.lower() == 'asdasd':
         response = random.choice(welcome_message)
         await message.channel.send(response)
         return
